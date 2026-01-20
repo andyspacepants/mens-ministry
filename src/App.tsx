@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./index.css";
+import { Admin } from "./components/admin/Admin";
 
 // Data
 const values = [
@@ -149,6 +150,19 @@ const nextValueId = getNextValueId();
 
 export function App() {
   const [selectedValue, setSelectedValue] = useState(values.find(v => v.id === nextValueId)!);
+  const [pathname, setPathname] = useState(window.location.pathname);
+
+  // Handle browser navigation
+  useEffect(() => {
+    const handlePopState = () => setPathname(window.location.pathname);
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  // Render admin page if on /admin route
+  if (pathname === "/admin") {
+    return <Admin />;
+  }
 
   return (
     <div className="min-h-screen bg-black text-[#e5e5e5]">
