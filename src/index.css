@@ -1,0 +1,224 @@
+@import "../styles/globals.css";
+
+@layer base {
+  :root {
+    --jlc-blue: #3b82f6;
+    --jlc-blue-dark: #2563eb;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    scroll-snap-type: y proximity;
+  }
+
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: #000;
+    color: #e5e5e5;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Scroll snap sections */
+.snap-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+/* Hero gradient background */
+.hero-gradient::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(59,130,246,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Scroll indicator animation */
+.scroll-line {
+  width: 2px;
+  height: 60px;
+  background: linear-gradient(180deg, #fff 0%, transparent 100%);
+}
+
+/* Pyramid styles */
+.pyramid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.pyramid-row {
+  display: flex;
+  gap: 4px;
+}
+
+.pyramid-row-1 { width: 220px; }
+.pyramid-row-2 { width: 400px; }
+.pyramid-row-3 { width: 620px; }
+.pyramid-row-4 { width: 800px; }
+
+.pyramid-block {
+  flex: 1;
+  background: #080808;
+  border: 1px solid #1a1a1a;
+  padding: 24px 16px;
+  text-align: center;
+  transition: all 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.pyramid-block:hover {
+  background: #0f0f0f;
+  border-color: var(--jlc-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
+}
+
+.pyramid-block:hover .block-name {
+  color: var(--jlc-blue);
+}
+
+.pyramid-block.active {
+  background: linear-gradient(180deg, #1e3a5f 0%, #0a0a0a 100%);
+  border-color: var(--jlc-blue);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 40px rgba(59, 130, 246, 0.15);
+}
+
+.pyramid-block.active .block-name {
+  color: var(--jlc-blue);
+}
+
+/* Timeline styles */
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 120px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #151515;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 120px 1fr auto;
+  gap: 40px;
+  padding: 20px 0;
+  position: relative;
+  transition: all 0.3s;
+  align-items: center;
+}
+
+.timeline-item:hover {
+  background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.03) 20%, rgba(59,130,246,0.03) 80%, transparent 100%);
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  left: 116px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 9px;
+  background: #000;
+  border: 2px solid var(--jlc-blue);
+  border-radius: 50%;
+  transition: all 0.3s;
+}
+
+.timeline-item:hover::after {
+  background: var(--jlc-blue);
+  transform: translateY(-50%) scale(1.3);
+}
+
+.timeline-item.next-up::after {
+  background: var(--jlc-blue);
+  width: 13px;
+  height: 13px;
+  left: 114px;
+  box-shadow: 0 0 20px rgba(59,130,246,0.5);
+}
+
+.timeline-item.next-up {
+  background: linear-gradient(90deg, transparent 0%, rgba(59,130,246,0.05) 20%, rgba(59,130,246,0.05) 80%, transparent 100%);
+}
+
+.timeline-actions {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.timeline-item:hover .timeline-actions,
+.timeline-item.next-up .timeline-actions {
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .pyramid-row-1 { width: 180px; }
+  .pyramid-row-2 { width: 320px; }
+  .pyramid-row-3 { width: 500px; }
+  .pyramid-row-4 { width: 640px; }
+}
+
+@media (max-width: 800px) {
+  .timeline::before {
+    left: 80px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 80px 1fr;
+    gap: 24px;
+  }
+
+  .timeline-item::after {
+    left: 76px;
+  }
+
+  .timeline-item.next-up::after {
+    left: 74px;
+  }
+
+  .timeline-actions {
+    display: none;
+  }
+
+  .pyramid-row-1 { width: 140px; }
+  .pyramid-row-2 { width: 240px; }
+  .pyramid-row-3 { width: 360px; }
+  .pyramid-row-4 { width: 440px; }
+
+  .pyramid-block {
+    padding: 14px 8px;
+  }
+}
+
+@media (max-width: 500px) {
+  .pyramid-row-1 { width: 120px; }
+  .pyramid-row-2 { width: 200px; }
+  .pyramid-row-3 { width: 300px; }
+  .pyramid-row-4 { width: 340px; }
+
+  .pyramid-block {
+    padding: 12px 6px;
+  }
+
+  .block-desc {
+    display: none;
+  }
+}

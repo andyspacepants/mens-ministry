@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:www.journeylifechurch.com)",
+      "Bash(mydev --help:*)",
+      "Bash(mydev show:*)",
+      "Bash(mydev stack:*)",
+      "Bash(mydev ports:*)"
+    ]
+  }
+}

@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pyramid Visual Exploration</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #000;
+      color: #e5e5e5;
+      line-height: 1.6;
+      padding: 60px 40px;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .intro {
+      text-align: center;
+      color: #666;
+      margin-bottom: 80px;
+      font-size: 14px;
+    }
+
+    .version {
+      margin-bottom: 120px;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .version-header {
+      display: flex;
+      align-items: baseline;
+      gap: 16px;
+      margin-bottom: 40px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid #1a1a1a;
+    }
+
+    .version-number {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #3b82f6;
+      font-weight: 600;
+    }
+
+    .version-name {
+      font-size: 24px;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .version-desc {
+      color: #555;
+      font-size: 14px;
+      margin-left: auto;
+    }
+
+
+    /* ==========================================
+       VERSION A: Clean Pyramid - Values Only
+       Fixed row widths, split evenly per row
+       ========================================== */
+    .pyramid-a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .pyramid-a .row {
+      display: flex;
+      gap: 4px;
+    }
+
+    /* Lock in the pyramid shape */
+    .pyramid-a .row-1 { width: 200px; }
+    .pyramid-a .row-2 { width: 360px; }
+    .pyramid-a .row-3 { width: 580px; }
+    .pyramid-a .row-4 { width: 740px; }
+
+    .pyramid-a .block {
+      flex: 1;
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      padding: 24px 12px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .pyramid-a .block:hover {
+      background: #101010;
+      border-color: #3b82f6;
+    }
+
+    .pyramid-a .row-1 .block {
+      background: linear-gradient(180deg, #1e3a5f 0%, #0a0a0a 100%);
+      border-color: #3b82f6;
+    }
+
+    .pyramid-a .block-name {
+      font-weight: 600;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .pyramid-a .block-desc {
+      font-size: 10px;
+      color: #555;
+    }
+
+
+    /* ==========================================
+       VERSION B: Pyramid with Category Labels Below
+       Same locked widths, category spans full row width below
+       ========================================== */
+    .pyramid-b {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .pyramid-b .tier {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .pyramid-b .row {
+      display: flex;
+      gap: 4px;
+    }
+
+    /* Lock in the pyramid shape */
+    .pyramid-b .tier-1 .row { width: 200px; }
+    .pyramid-b .tier-2 .row { width: 360px; }
+    .pyramid-b .tier-3 .row { width: 580px; }
+    .pyramid-b .tier-4 .row { width: 740px; }
+
+    .pyramid-b .tier-1 .category { width: 200px; }
+    .pyramid-b .tier-2 .category { width: 360px; }
+    .pyramid-b .tier-3 .category { width: 580px; }
+    .pyramid-b .tier-4 .category { width: 740px; }
+
+    .pyramid-b .block {
+      flex: 1;
+      background: #080808;
+      border: 1px solid #1a1a1a;
+      border-bottom: none;
+      padding: 24px 12px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .pyramid-b .block:hover {
+      background: #101010;
+      border-color: #3b82f6;
+    }
+
+    .pyramid-b .tier-1 .block {
+      background: linear-gradient(180deg, #1e3a5f 0%, #0a0a0a 100%);
+      border-color: #3b82f6;
+    }
+
+    .pyramid-b .block-name {
+      font-weight: 600;
+      color: #fff;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+
+    .pyramid-b .block-desc {
+      font-size: 10px;
+      color: #555;
+    }
+
+    .pyramid-b .category {
+      background: #0a0a0a;
+      border: 1px solid #1a1a1a;
+      padding: 10px 0;
+      text-align: center;
+    }
+
+    .pyramid-b .tier-1 .category {
+      background: #0f172a;
+      border-color: #3b82f6;
+    }
+
+    .pyramid-b .category span {
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #3b82f6;
+      font-weight: 600;
+    }
+
+
+    /* ==========================================
+       VERSION C: Same as B but more minimal category bar
+       ========================================== */
+    .pyramid-c {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+    }
+
+    .pyramid-c .tier {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .pyramid-c .row {
+      display: flex;
+      gap: 2px;
+    }
+
+    /* Lock in the pyramid shape */
+    .pyramid-c .tier-1 .row { width: 200px; }
+    .pyramid-c .tier-2 .row { width: 360px; }
+    .pyramid-c .tier-3 .row { width: 580px; }
+    .pyramid-c .tier-4 .row { width: 740px; }
+
+    .pyramid-c .tier-1 .category { width: 200px; }
+    .pyramid-c .tier-2 .category { width: 360px; }
+    .pyramid-c .tier-3 .category { width: 580px; }
+    .pyramid-c .tier-4 .category { width: 740px; }
+
+    .pyramid-c .block {
+      flex: 1;
+      background: #060606;
+      border: 1px solid #151515;
+      padding: 22px 10px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+
+    .pyramid-c .block:hover {
+      background: #0c0c0c;
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+    }
+
+    .pyramid-c .tier-1 .block {
+      background: linear-gradient(180deg, #1e3a5f 0%, #060606 100%);
+      border-color: #1e3a5f;
+    }
+
+    .pyramid-c .tier-1 .block:hover {
+      border-color: #3b82f6;
+    }
+
+    .pyramid-c .block-name {
+      font-weight: 600;
+      color: #fff;
+      font-size: 13px;
+      margin-bottom: 4px;
+    }
+
+    .pyramid-c .block-desc {
+      font-size: 10px;
+      color: #444;
+    }
+
+    .pyramid-c .category {
+      padding: 8px 0 0 0;
+      text-align: center;
+    }
+
+    .pyramid-c .category span {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      color: #3b82f6;
+      font-weight: 600;
+    }
+
+
+    /* ==========================================
+       VERSION D: Compact with integrated category
+       Category as a left-aligned label within the row space
+       ========================================== */
+    .pyramid-d {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pyramid-d .tier {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .pyramid-d .row {
+      display: flex;
+      gap: 2px;
+    }
+
+    /* Lock in the pyramid shape */
+    .pyramid-d .tier-1 .row { width: 220px; }
+    .pyramid-d .tier-2 .row { width: 380px; }
+    .pyramid-d .tier-3 .row { width: 600px; }
+    .pyramid-d .tier-4 .row { width: 760px; }
+
+    .pyramid-d .block {
+      flex: 1;
+      background: #050505;
+      padding: 20px 10px 14px;
+      text-align: center;
+      transition: all 0.3s;
+      cursor: pointer;
+      border-left: 1px solid #1a1a1a;
+    }
+
+    .pyramid-d .block:first-child {
+      border-left: none;
+    }
+
+    .pyramid-d .block:hover {
+      background: #0a0a0a;
+    }
+
+    .pyramid-d .block:hover .block-name {
+      color: #3b82f6;
+    }
+
+    .pyramid-d .block-name {
+      font-weight: 600;
+      color: #fff;
+      font-size: 13px;
+      margin-bottom: 4px;
+      transition: color 0.3s;
+    }
+
+    .pyramid-d .block-desc {
+      font-size: 10px;
+      color: #444;
+    }
+
+    .pyramid-d .category-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 4px;
+    }
+
+    .pyramid-d .tier-1 .category-row { width: 220px; }
+    .pyramid-d .tier-2 .category-row { width: 380px; }
+    .pyramid-d .tier-3 .category-row { width: 600px; }
+    .pyramid-d .tier-4 .category-row { width: 760px; }
+
+    .pyramid-d .category-label {
+      font-size: 9px;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      color: #3b82f6;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .pyramid-d .category-line {
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, #3b82f6 0%, transparent 100%);
+    }
+
+
+    /* Responsive */
+    @media (max-width: 800px) {
+      .pyramid-a .row-1, .pyramid-b .tier-1 .row, .pyramid-b .tier-1 .category,
+      .pyramid-c .tier-1 .row, .pyramid-c .tier-1 .category,
+      .pyramid-d .tier-1 .row, .pyramid-d .tier-1 .category-row { width: 140px; }
+
+      .pyramid-a .row-2, .pyramid-b .tier-2 .row, .pyramid-b .tier-2 .category,
+      .pyramid-c .tier-2 .row, .pyramid-c .tier-2 .category,
+      .pyramid-d .tier-2 .row, .pyramid-d .tier-2 .category-row { width: 240px; }
+
+      .pyramid-a .row-3, .pyramid-b .tier-3 .row, .pyramid-b .tier-3 .category,
+      .pyramid-c .tier-3 .row, .pyramid-c .tier-3 .category,
+      .pyramid-d .tier-3 .row, .pyramid-d .tier-3 .category-row { width: 360px; }
+
+      .pyramid-a .row-4, .pyramid-b .tier-4 .row, .pyramid-b .tier-4 .category,
+      .pyramid-c .tier-4 .row, .pyramid-c .tier-4 .category,
+      .pyramid-d .tier-4 .row, .pyramid-d .tier-4 .category-row { width: 440px; }
+
+      .pyramid-a .block, .pyramid-b .block, .pyramid-c .block, .pyramid-d .block {
+        padding: 16px 6px;
+      }
+
+      .pyramid-a .block-name, .pyramid-b .block-name,
+      .pyramid-c .block-name, .pyramid-d .block-name {
+        font-size: 10px;
+      }
+
+      .pyramid-a .block-desc, .pyramid-b .block-desc,
+      .pyramid-c .block-desc, .pyramid-d .block-desc {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Pyramid Visual Exploration</h1>
+  <p class="intro">Locked pyramid shape with rows split evenly. Two approaches to category labels.</p>
+
+  <!-- VERSION A: Values Only -->
+  <div class="version">
+    <div class="version-header">
+      <span class="version-number">Version A</span>
+      <span class="version-name">Clean Pyramid - Values Only</span>
+      <span class="version-desc">Fixed row widths, no category labels</span>
+    </div>
+
+    <div class="pyramid-a">
+      <div class="row row-1">
+        <div class="block">
+          <div class="block-name">On Earth as in Heaven</div>
+          <div class="block-desc">The Ultimate Aim</div>
+        </div>
+      </div>
+
+      <div class="row row-2">
+        <div class="block">
+          <div class="block-name">Growing</div>
+          <div class="block-desc">Language of Invitation</div>
+        </div>
+        <div class="block">
+          <div class="block-name">Fruitful</div>
+          <div class="block-desc">Fruit that Lasts</div>
+        </div>
+      </div>
+
+      <div class="row row-3">
+        <div class="block">
+          <div class="block-name">Husband</div>
+          <div class="block-desc">Sacrificial Love</div>
+        </div>
+        <div class="block">
+          <div class="block-name">Father</div>
+          <div class="block-desc">Inheritance</div>
+        </div>
+        <div class="block">
+          <div class="block-name">Worker</div>
+          <div class="block-desc">Avodah & Shamar</div>
+        </div>
+        <div class="block">
+          <div class="block-name">Member</div>
+          <div class="block-desc">Compassion</div>
+        </div>
+      </div>
+
+      <div class="row row-4">
+        <div class="block">
+          <div class="block-name">Intimacy</div>
+          <div class="block-desc">Personal Connection to the Lord</div>
+        </div>
+        <div class="block">
+          <div class="block-name">Identity</div>
+          <div class="block-desc">What the Father Says About Me</div>
+        </div>
+        <div class="block">
+          <div class="block-name">Integrity</div>
+          <div class="block-desc">No Matter the Cost</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION B: Category Below - Boxed -->
+  <div class="version">
+    <div class="version-header">
+      <span class="version-number">Version B</span>
+      <span class="version-name">Category Below - Boxed</span>
+      <span class="version-desc">Category spans row width, connected border</span>
+    </div>
+
+    <div class="pyramid-b">
+      <div class="tier tier-1">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">On Earth as in Heaven</div>
+            <div class="block-desc">The Ultimate Aim</div>
+          </div>
+        </div>
+        <div class="category"><span>Inheritance</span></div>
+      </div>
+
+      <div class="tier tier-2">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Growing</div>
+            <div class="block-desc">Language of Invitation</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Fruitful</div>
+            <div class="block-desc">Fruit that Lasts</div>
+          </div>
+        </div>
+        <div class="category"><span>Alignment</span></div>
+      </div>
+
+      <div class="tier tier-3">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Husband</div>
+            <div class="block-desc">Sacrificial Love</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Father</div>
+            <div class="block-desc">Inheritance</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Worker</div>
+            <div class="block-desc">Avodah & Shamar</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Member</div>
+            <div class="block-desc">Compassion</div>
+          </div>
+        </div>
+        <div class="category"><span>Leadership</span></div>
+      </div>
+
+      <div class="tier tier-4">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Intimacy</div>
+            <div class="block-desc">Personal Connection to the Lord</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Identity</div>
+            <div class="block-desc">What the Father Says About Me</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Integrity</div>
+            <div class="block-desc">No Matter the Cost</div>
+          </div>
+        </div>
+        <div class="category"><span>Foundations</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION C: Category Below - Minimal -->
+  <div class="version">
+    <div class="version-header">
+      <span class="version-number">Version C</span>
+      <span class="version-name">Category Below - Minimal</span>
+      <span class="version-desc">Just text label below, more spacing</span>
+    </div>
+
+    <div class="pyramid-c">
+      <div class="tier tier-1">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">On Earth as in Heaven</div>
+            <div class="block-desc">The Ultimate Aim</div>
+          </div>
+        </div>
+        <div class="category"><span>Inheritance</span></div>
+      </div>
+
+      <div class="tier tier-2">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Growing</div>
+            <div class="block-desc">Language of Invitation</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Fruitful</div>
+            <div class="block-desc">Fruit that Lasts</div>
+          </div>
+        </div>
+        <div class="category"><span>Alignment</span></div>
+      </div>
+
+      <div class="tier tier-3">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Husband</div>
+            <div class="block-desc">Sacrificial Love</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Father</div>
+            <div class="block-desc">Inheritance</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Worker</div>
+            <div class="block-desc">Avodah & Shamar</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Member</div>
+            <div class="block-desc">Compassion</div>
+          </div>
+        </div>
+        <div class="category"><span>Leadership</span></div>
+      </div>
+
+      <div class="tier tier-4">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Intimacy</div>
+            <div class="block-desc">Personal Connection to the Lord</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Identity</div>
+            <div class="block-desc">What the Father Says About Me</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Integrity</div>
+            <div class="block-desc">No Matter the Cost</div>
+          </div>
+        </div>
+        <div class="category"><span>Foundations</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VERSION D: Category with Line -->
+  <div class="version">
+    <div class="version-header">
+      <span class="version-number">Version D</span>
+      <span class="version-name">Category with Trailing Line</span>
+      <span class="version-desc">Left-aligned label with gradient line</span>
+    </div>
+
+    <div class="pyramid-d">
+      <div class="tier tier-1">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">On Earth as in Heaven</div>
+            <div class="block-desc">The Ultimate Aim</div>
+          </div>
+        </div>
+        <div class="category-row">
+          <span class="category-label">Inheritance</span>
+          <div class="category-line"></div>
+        </div>
+      </div>
+
+      <div class="tier tier-2">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Growing</div>
+            <div class="block-desc">Language of Invitation</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Fruitful</div>
+            <div class="block-desc">Fruit that Lasts</div>
+          </div>
+        </div>
+        <div class="category-row">
+          <span class="category-label">Alignment</span>
+          <div class="category-line"></div>
+        </div>
+      </div>
+
+      <div class="tier tier-3">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Husband</div>
+            <div class="block-desc">Sacrificial Love</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Father</div>
+            <div class="block-desc">Inheritance</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Worker</div>
+            <div class="block-desc">Avodah & Shamar</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Member</div>
+            <div class="block-desc">Compassion</div>
+          </div>
+        </div>
+        <div class="category-row">
+          <span class="category-label">Leadership</span>
+          <div class="category-line"></div>
+        </div>
+      </div>
+
+      <div class="tier tier-4">
+        <div class="row">
+          <div class="block">
+            <div class="block-name">Intimacy</div>
+            <div class="block-desc">Personal Connection to the Lord</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Identity</div>
+            <div class="block-desc">What the Father Says About Me</div>
+          </div>
+          <div class="block">
+            <div class="block-name">Integrity</div>
+            <div class="block-desc">No Matter the Cost</div>
+          </div>
+        </div>
+        <div class="category-row">
+          <span class="category-label">Foundations</span>
+          <div class="category-line"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
