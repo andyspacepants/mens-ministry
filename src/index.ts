@@ -2,12 +2,29 @@ import { serve } from "bun";
 import { existsSync, statSync } from "fs";
 import path from "path";
 import { checkAdminPin } from "./lib/auth";
+import {
+  generateSingleEventICS,
+  generateRemainingEventsICS,
+  generateAllEventsICS,
+  getFilename,
+} from "./lib/ics";
+import { schedule } from "./data/schedule";
 
 const isProduction = process.env.NODE_ENV === "production";
 
 // In development, use HMR-processed HTML bundle
 // In production, we serve pre-built files from dist/
 const devIndex = isProduction ? null : (await import("./index.html")).default;
+
+// Helper to create ICS response
+function icsResponse(content: string, filename: string): Response {
+  return new Response(content, {
+    headers: {
+      "Content-Type": "text/calendar; charset=utf-8",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+    },
+  });
+}
 
 // API route handlers
 function handleApiRoute(request: Request): Response | null {
@@ -19,6 +36,31 @@ function handleApiRoute(request: Request): Response | null {
       return Response.json({ success: true });
     }
     return Response.json({ error: "Invalid PIN" }, { status: 401 });
+  }
+
+  // GET /api/calendar/all - Download all events
+  if (url.pathname === "/api/calendar/all" && request.method === "GET") {
+    const ics = generateAllEventsICS();
+    return icsResponse(ics, getFilename("all"));
+  }
+
+  // GET /api/calendar/remaining - Download remaining events from today
+  if (url.pathname === "/api/calendar/remaining" && request.method === "GET") {
+    const ics = generateRemainingEventsICS();
+    return icsResponse(ics, getFilename("remaining"));
+  }
+
+  // GET /api/calendar/:index - Download single event
+  const singleMatch = url.pathname.match(/^\/api\/calendar\/(\d+)$/);
+  if (singleMatch && request.method === "GET") {
+    const index = parseInt(singleMatch[1], 10);
+    if (index >= 0 && index < schedule.length) {
+      const ics = generateSingleEventICS(index);
+      if (ics) {
+        return icsResponse(ics, getFilename("single", index));
+      }
+    }
+    return Response.json({ error: "Event not found" }, { status: 404 });
   }
 
   return null; // Not an API route
@@ -34,6 +76,31 @@ const server = serve({
           return Response.json({ success: true });
         }
         return Response.json({ error: "Invalid PIN" }, { status: 401 });
+      },
+    },
+
+    "/api/calendar/all": {
+      GET: () => icsResponse(generateAllEventsICS(), getFilename("all")),
+    },
+
+    "/api/calendar/remaining": {
+      GET: () => icsResponse(generateRemainingEventsICS(), getFilename("remaining")),
+    },
+
+    "/api/calendar/:index": {
+      GET: (req: Request) => {
+        const url = new URL(req.url);
+        const match = url.pathname.match(/\/api\/calendar\/(\d+)/);
+        if (match) {
+          const index = parseInt(match[1], 10);
+          if (index >= 0 && index < schedule.length) {
+            const ics = generateSingleEventICS(index);
+            if (ics) {
+              return icsResponse(ics, getFilename("single", index));
+            }
+          }
+        }
+        return Response.json({ error: "Event not found" }, { status: 404 });
       },
     },
 

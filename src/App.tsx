@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import { Admin } from "./components/admin/Admin";
+import { schedule, getNextEventIndex, getNextValueId } from "./data/schedule";
 
-// Data
+// Values data
 const values = [
   // Row 1 - Inheritance
   {
@@ -79,51 +80,6 @@ const values = [
     description: "Integrity means being the same man in every room—at home, at work, at church, online. We live with integrity no matter the cost, because our character is our testimony.",
   },
 ];
-
-const schedule = [
-  { month: "Feb", day: 21, year: 2026, title: "Vision & Invitation", description: "The year begins. Dream about what 2026 could be.", category: "Kickoff", valueId: null },
-  { month: "Mar", day: 21, year: 2026, title: "Intimacy", description: "I have a personal connection to the Lord", category: "Foundations", valueId: "intimacy" },
-  { month: "Apr", day: 18, year: 2026, title: "Identity", description: "I know what the Father says about me", category: "Foundations", valueId: "identity" },
-  { month: "May", day: 16, year: 2026, title: "Integrity", description: "I live with integrity no matter the cost", category: "Foundations", valueId: "integrity" },
-  { month: "Jun", day: 13, year: 2026, title: "Husband", description: "Sacrificial Love", category: "Leadership", valueId: "husband" },
-  { month: "Jul", day: 18, year: 2026, title: "Father", description: "Inheritance", category: "Leadership", valueId: "father" },
-  { month: "Aug", day: 15, year: 2026, title: "Worker", description: "Avodah & Shamar", category: "Leadership", valueId: "worker" },
-  { month: "Sep", day: 19, year: 2026, title: "Member", description: "Compassion", category: "Leadership", valueId: "member" },
-  { month: "Oct", day: 17, year: 2026, title: "Growing", description: "Language of Invitation", category: "Alignment", valueId: "growing" },
-  { month: "Nov", day: 14, year: 2026, title: "Fruitful", description: "Fruit that lasts", category: "Alignment", valueId: "fruitful" },
-  { month: "Dec", day: 12, year: 2026, title: "On Earth as in Heaven", description: "The ultimate aim", category: "Inheritance", valueId: "heaven" },
-];
-
-// Helper to convert month name to number
-const monthToNum: Record<string, number> = {
-  Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5,
-  Jul: 6, Aug: 7, Sep: 8, Oct: 9, Nov: 10, Dec: 11
-};
-
-// Find the next upcoming event
-function getNextEventIndex(): number {
-  const today = new Date();
-  for (let i = 0; i < schedule.length; i++) {
-    const event = schedule[i];
-    const eventDate = new Date(event.year, monthToNum[event.month], event.day);
-    if (eventDate >= today) {
-      return i;
-    }
-  }
-  return schedule.length - 1; // Default to last if all passed
-}
-
-// Find the next value-based event (excludes kickoff)
-function getNextValueId(): string {
-  const today = new Date();
-  for (const event of schedule) {
-    const eventDate = new Date(event.year, monthToNum[event.month], event.day);
-    if (eventDate >= today && event.valueId) {
-      return event.valueId;
-    }
-  }
-  return "intimacy"; // Default fallback
-}
 
 // Icons
 const ArrowIcon = () => (
@@ -319,10 +275,13 @@ export function App() {
             <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-[-2px]">
               2026 Schedule
             </h2>
-            <button className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold bg-[#3b82f6] text-white rounded-md hover:bg-[#2563eb] transition-colors">
+            <a
+              href="/api/calendar/remaining"
+              className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold bg-[#3b82f6] text-white rounded-md hover:bg-[#2563eb] transition-colors"
+            >
               <CalendarIcon />
               Add All to Calendar
-            </button>
+            </a>
           </div>
 
           {/* Timeline */}
@@ -350,10 +309,13 @@ export function App() {
                     </span>
                   </div>
                   <div className="timeline-actions">
-                    <button className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold bg-[#1a1a1a] text-[#888] border border-[#222] rounded-md hover:bg-[#222] hover:text-white hover:border-[#333] transition-colors">
+                    <a
+                      href={`/api/calendar/${index}`}
+                      className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold bg-[#1a1a1a] text-[#888] border border-[#222] rounded-md hover:bg-[#222] hover:text-white hover:border-[#333] transition-colors"
+                    >
                       <PlusIcon />
                       Add
-                    </button>
+                    </a>
                   </div>
                 </div>
               );
