@@ -1,7 +1,7 @@
 # Men's Ministry Project Status
 
 **Last Updated**: 2026-01-20
-**Current Phase**: React app built, desktop layout complete, ready for mobile + deployment
+**Current Phase**: Live at https://jlc.cultureofmanhood.com
 
 ---
 
@@ -34,44 +34,66 @@ Building a men's ministry website for Journey Life Church (JLC) with the potenti
 
 ---
 
-## What's Built (v1.0)
+## What's Built
 
 ### Landing Page Features
 - ✅ Hero section with scroll-snap navigation
-- ✅ Interactive pyramid (click to see value details)
+- ✅ Interactive pyramid (click to see value details) - desktop
+- ✅ Categorized values list for mobile (Foundations → Leadership → Alignment → Inheritance)
 - ✅ Auto-highlights next upcoming value based on current date
 - ✅ Quote section
 - ✅ Schedule timeline with dynamic "NEXT UP" badge
-- ✅ Responsive pyramid sizing (800px → 640px → smaller on mobile)
+- ✅ ICS calendar downloads (single event, remaining events, all events)
+- ✅ Social share image (og:image) for link previews
+
+### Infrastructure
+- ✅ GitHub repo: `andyspacepants/mens-ministry`
+- ✅ CI/CD: GitHub Actions deploys to Fly.io on merge to main
+- ✅ Custom domain: `jlc.cultureofmanhood.com` (SSL via Fly.io)
+- ✅ Admin page with PIN authentication (for future use)
 
 ### Tech Stack
 - **Runtime**: Bun 1.3.6
 - **Frontend**: React 19 + TypeScript
 - **Styling**: Tailwind CSS 4 + custom CSS
 - **Components**: shadcn/ui (available but not heavily used yet)
-- **Port**: 5003
+- **Hosting**: Fly.io
+- **Domain**: Porkbun (cultureofmanhood.com)
 
 ### File Structure
 ```
 mens-ministry/
 ├── src/
 │   ├── App.tsx                 # Main landing page
-│   ├── index.ts                # Bun server (port 5003)
-│   ├── index.css               # Custom styles (pyramid, timeline)
+│   ├── index.ts                # Bun server (API routes + static serving)
+│   ├── index.css               # Custom styles (pyramid, timeline, mobile)
 │   ├── frontend.tsx            # React entry
-│   ├── index.html
-│   └── components/ui/          # shadcn components
+│   ├── index.html              # HTML template with OG meta tags
+│   ├── data/
+│   │   └── schedule.ts         # Shared schedule data
+│   ├── lib/
+│   │   ├── ics.ts              # ICS calendar generation
+│   │   └── auth.ts             # Admin PIN authentication
+│   └── components/
+│       ├── ui/                 # shadcn components
+│       └── admin/              # Admin page components
+├── public/
+│   └── og-image.svg            # Social share image
 ├── docs/
-│   ├── 2026/                   # Vision, schedule, cadence docs
-│   └── site-brainstorm/        # Original HTML mockups (v1-v4.1)
-├── styles/globals.css
-├── package.json
+│   └── 2026/                   # Vision, schedule, cadence docs
+├── .github/
+│   └── workflows/
+│       └── fly-deploy.yml      # CI/CD workflow
+├── fly.toml                    # Fly.io config
 └── PROJECT-STATUS.md
 ```
 
 ---
 
 ## 2026 Schedule
+
+**Location**: 2289 Cedar St. Holt, MI 48842
+**Time**: 9:00 AM - 11:00 AM Eastern
 
 **Pattern**: Third Saturday of each month, EXCEPT June/Nov/Dec (Second Saturday)
 
@@ -91,108 +113,29 @@ mens-ministry/
 
 ---
 
-## Next Steps
+## API Endpoints
 
-### 1. Mobile View (Priority)
-Most users will access via QR code on their phone. Need to:
-- [ ] Test current responsive behavior on actual devices
-- [ ] Optimize pyramid for mobile (may need different layout)
-- [ ] Ensure scroll-snap works well on mobile
-- [ ] Test touch interactions on pyramid blocks
-- [ ] Consider mobile-first header/nav if needed
-
-### 2. ICS Calendar Generation
-- [ ] Create ICS file generator for individual events
-- [ ] Create "Add All" ICS with full year schedule
-- [ ] Make event details (location, time, description) easy to update
-- [ ] Consider: Store event metadata in a separate data file for easy editing
-
-**Event Details Needed**:
-- Location (TBD - church address?)
-- Time (TBD - morning? evening?)
-- Description per event
-
-### 3. Deployment
-Need to set up production hosting:
-
-**Domain**:
-- [ ] Purchase `cultureofmanhood.com` (Porkbun)
-- [ ] Or use subdomain pattern: `men.journeylifechurch.com`?
-
-**Hosting Options**:
-| Option | Pros | Cons |
-|--------|------|------|
-| **Fly.io** | Already have account, good for Bun apps, easy SSL | Monthly cost if always-on |
-| **Cloudflare Pages** | Free, fast CDN, easy DNS if domain on CF | Static only (no server routes) |
-| **Cloudflare Workers** | Can run Bun-like code, free tier | Different deployment model |
-
-**Recommended Stack**:
-- Domain: Porkbun or Cloudflare Registrar
-- DNS: Cloudflare (free)
-- Hosting: Fly.io (since we have API routes and will add more backend later)
-- SSL: Automatic via Fly.io
-
-**Questions to Answer**:
-- Do we need the Bun server routes, or could this be static?
-- If static, Cloudflare Pages is simpler and free
-- If we need server (ICS generation, future surveys), Fly.io makes sense
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/calendar/:index` | GET | Download ICS for single event |
+| `/api/calendar/remaining` | GET | Download ICS for remaining events |
+| `/api/calendar/all` | GET | Download ICS for all events |
+| `/api/admin/verify` | POST | Verify admin PIN |
 
 ---
 
-## Future Features (Post-Launch)
+## Remaining Tasks
 
-### Near-term
-- [ ] ICS calendar downloads working
-- [ ] QR code for easy mobile access
-- [ ] Basic analytics (who's visiting?)
+### Copy Review
+- [ ] Review and finalize all landing page copy
+- [ ] Value descriptions (shown on pyramid click)
+- [ ] Hero section messaging
 
-### Medium-term
+### Future Features
 - [ ] Survey system for monthly value tracking
-- [ ] Email/SMS reminders via Postmark
-- [ ] Admin page to update schedule/content
-
-### Long-term
+- [ ] Email/SMS reminders
 - [ ] Data visualization for Sunday projector
 - [ ] Multi-tenant support (`{church}.cultureofmanhood.com`)
-- [ ] Shared resources across churches
-
----
-
-## Design Decisions
-
-### Visual Style
-- **Colors**: Black background (#000), Blue accent (#3b82f6) - JLC brand
-- **Font**: Inter (Google Fonts)
-- **Layout**: Scroll-snap sections, full viewport height
-
-### Pyramid Sizing
-- Desktop: 800px base width
-- Tablet: 640px base width
-- Mobile: 340px base width (descriptions hidden)
-
-### Dynamic Highlighting
-- Pyramid auto-selects next upcoming VALUE (skips Kickoff)
-- Schedule shows "NEXT UP" on next chronological EVENT
-- Both computed from current date at page load
-
----
-
-## Key Content
-
-### Hero
-```
-Men's Ministry 2026
-We're building a culture, not a crowd.
-Being a man isn't once a month—it's every day, all the time.
-This is where we sharpen what that means, together.
-```
-
-### Quote
-```
-"We want to live these values so wholeheartedly that when people
-interact with us—at home, at Journey, at work, in our community—
-they experience them."
-```
 
 ---
 
@@ -202,11 +145,35 @@ they experience them."
 # Install dependencies
 bun install
 
-# Start dev server
+# Start dev server (with HMR)
 bun dev
+
+# Build for production
+bun run build
 
 # Open http://localhost:5003
 ```
+
+---
+
+## Deployment
+
+Automatic on merge to `main`:
+1. Push to GitHub
+2. GitHub Actions triggers
+3. Fly.io deploys new version
+
+Manual deploy:
+```bash
+fly deploy
+```
+
+---
+
+## Secrets/Config
+
+**Fly.io Secrets**:
+- `ADMIN_PIN` - PIN for admin page access
 
 ---
 
