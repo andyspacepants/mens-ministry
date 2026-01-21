@@ -168,6 +168,11 @@
   opacity: 1;
 }
 
+/* Mobile values list - hidden on desktop */
+.mobile-values {
+  display: none;
+}
+
 /* Responsive */
 @media (max-width: 900px) {
   .pyramid-row-1 { width: 180px; }
@@ -182,90 +187,59 @@
     scroll-snap-type: none;
   }
 
+  /* Hide pyramid on mobile, show mobile values list instead */
+  .pyramid {
+    display: none;
+  }
+
+  .mobile-values {
+    display: block;
+  }
+
   .timeline::before {
-    left: 70px;
+    left: 50px;
   }
 
   .timeline-item {
-    grid-template-columns: 70px 1fr;
-    gap: 20px;
-    padding: 16px 0;
+    grid-template-columns: 50px 1fr;
+    gap: 12px;
+    padding: 14px 0;
   }
 
   .timeline-item::after {
-    left: 66px;
+    left: 46px;
   }
 
   .timeline-item.next-up::after {
-    left: 64px;
+    left: 44px;
   }
 
-  /* Show Add buttons on mobile - stacked layout */
+  /* Hide individual Add buttons on mobile */
   .timeline-actions {
-    opacity: 1;
-    grid-column: 2;
-    margin-top: 8px;
-  }
-
-  .pyramid-row-1 { width: 160px; }
-  .pyramid-row-2 { width: 280px; }
-  .pyramid-row-3 { width: 400px; }
-  .pyramid-row-4 { width: 100%; max-width: 480px; }
-
-  .pyramid-block {
-    padding: 14px 8px;
-  }
-
-  /* Thinner font on mobile */
-  .block-name {
-    font-weight: 500;
-    font-size: 13px;
+    display: none;
   }
 }
 
 @media (max-width: 500px) {
   .timeline::before {
-    left: 60px;
+    left: 44px;
   }
 
   .timeline-item {
-    grid-template-columns: 60px 1fr;
-    gap: 16px;
+    grid-template-columns: 44px 1fr;
+    gap: 10px;
+    padding: 12px 0;
   }
 
   .timeline-item::after {
-    left: 56px;
+    left: 40px;
+    width: 7px;
+    height: 7px;
   }
 
   .timeline-item.next-up::after {
-    left: 54px;
-  }
-
-  .pyramid-row-1 { width: 140px; }
-  .pyramid-row-2 { width: 220px; }
-  .pyramid-row-3 { width: 320px; }
-  .pyramid-row-4 { width: 100%; max-width: 360px; }
-
-  .pyramid-block {
-    padding: 12px 6px;
-  }
-
-  .block-name {
-    font-size: 12px;
-  }
-
-  .block-desc {
-    display: none;
-  }
-}
-
-@media (max-width: 380px) {
-  .pyramid-row-1 { width: 120px; }
-  .pyramid-row-2 { width: 190px; }
-  .pyramid-row-3 { width: 280px; }
-  .pyramid-row-4 { width: 100%; max-width: 320px; }
-
-  .block-name {
-    font-size: 11px;
+    left: 38px;
+    width: 11px;
+    height: 11px;
   }
 }

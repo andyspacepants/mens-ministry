@@ -241,6 +241,125 @@ export function App() {
               </div>
             </div>
 
+            {/* Mobile Values List - Categorized */}
+            <div className="mobile-values w-full">
+              {/* Foundations */}
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Foundations</div>
+                <div className="space-y-2">
+                  {["intimacy", "identity", "integrity"].map(id => {
+                    const value = values.find(v => v.id === id)!;
+                    const isSelected = selectedValue.id === id;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => setSelectedValue(value)}
+                        className={`w-full text-left p-3 rounded-lg border transition-all ${
+                          isSelected
+                            ? "bg-[#0a1628] border-[#3b82f6]"
+                            : "bg-[#080808] border-[#1a1a1a]"
+                        }`}
+                      >
+                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
+                          {value.name}
+                        </div>
+                        {isSelected && (
+                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Leadership */}
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Leadership</div>
+                <div className="space-y-2">
+                  {["husband", "father", "worker", "member"].map(id => {
+                    const value = values.find(v => v.id === id)!;
+                    const isSelected = selectedValue.id === id;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => setSelectedValue(value)}
+                        className={`w-full text-left p-3 rounded-lg border transition-all ${
+                          isSelected
+                            ? "bg-[#0a1628] border-[#3b82f6]"
+                            : "bg-[#080808] border-[#1a1a1a]"
+                        }`}
+                      >
+                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
+                          {value.name}
+                        </div>
+                        {isSelected && (
+                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Alignment */}
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Alignment</div>
+                <div className="space-y-2">
+                  {["growing", "fruitful"].map(id => {
+                    const value = values.find(v => v.id === id)!;
+                    const isSelected = selectedValue.id === id;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => setSelectedValue(value)}
+                        className={`w-full text-left p-3 rounded-lg border transition-all ${
+                          isSelected
+                            ? "bg-[#0a1628] border-[#3b82f6]"
+                            : "bg-[#080808] border-[#1a1a1a]"
+                        }`}
+                      >
+                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
+                          {value.name}
+                        </div>
+                        {isSelected && (
+                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Inheritance */}
+              <div className="mb-6">
+                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Inheritance</div>
+                <div className="space-y-2">
+                  {["heaven"].map(id => {
+                    const value = values.find(v => v.id === id)!;
+                    const isSelected = selectedValue.id === id;
+                    return (
+                      <button
+                        key={id}
+                        onClick={() => setSelectedValue(value)}
+                        className={`w-full text-left p-3 rounded-lg border transition-all ${
+                          isSelected
+                            ? "bg-[#0a1628] border-[#3b82f6]"
+                            : "bg-[#080808] border-[#1a1a1a]"
+                        }`}
+                      >
+                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
+                          {value.name}
+                        </div>
+                        {isSelected && (
+                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+
             {/* Value Detail Panel */}
             <div className="bg-[#080808] border border-[#1a1a1a] rounded-lg p-6 md:p-10 w-full max-w-[800px] text-center mx-4 md:mx-0">
               <div className="text-[11px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">

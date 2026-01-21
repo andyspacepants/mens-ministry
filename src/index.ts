@@ -104,6 +104,11 @@ const server = serve({
       },
     },
 
+    // Static assets
+    "/og-image.svg": new Response(Bun.file("public/og-image.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+
     // In development, serve HMR-processed index for all routes
     ...(!isProduction && {
       "/*": devIndex,
@@ -119,6 +124,13 @@ const server = serve({
       // Handle API routes first
       const apiResponse = handleApiRoute(request);
       if (apiResponse) return apiResponse;
+
+      // Serve og-image from public folder
+      if (pathname === "/og-image.svg") {
+        return new Response(Bun.file("public/og-image.svg"), {
+          headers: { "Content-Type": "image/svg+xml" },
+        });
+      }
 
       // Try to serve static file from dist/ (skip root path)
       if (pathname !== "/") {
