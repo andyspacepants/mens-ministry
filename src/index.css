@@ -177,48 +177,95 @@
 }
 
 @media (max-width: 800px) {
+  /* Disable scroll snap on mobile - browsers are inconsistent */
+  html {
+    scroll-snap-type: none;
+  }
+
   .timeline::before {
-    left: 80px;
+    left: 70px;
   }
 
   .timeline-item {
-    grid-template-columns: 80px 1fr;
-    gap: 24px;
+    grid-template-columns: 70px 1fr;
+    gap: 20px;
+    padding: 16px 0;
   }
 
   .timeline-item::after {
-    left: 76px;
+    left: 66px;
   }
 
   .timeline-item.next-up::after {
-    left: 74px;
+    left: 64px;
   }
 
+  /* Show Add buttons on mobile - stacked layout */
   .timeline-actions {
-    display: none;
+    opacity: 1;
+    grid-column: 2;
+    margin-top: 8px;
   }
 
-  .pyramid-row-1 { width: 140px; }
-  .pyramid-row-2 { width: 240px; }
-  .pyramid-row-3 { width: 360px; }
-  .pyramid-row-4 { width: 440px; }
+  .pyramid-row-1 { width: 160px; }
+  .pyramid-row-2 { width: 280px; }
+  .pyramid-row-3 { width: 400px; }
+  .pyramid-row-4 { width: 100%; max-width: 480px; }
 
   .pyramid-block {
     padding: 14px 8px;
   }
+
+  /* Thinner font on mobile */
+  .block-name {
+    font-weight: 500;
+    font-size: 13px;
+  }
 }
 
 @media (max-width: 500px) {
-  .pyramid-row-1 { width: 120px; }
-  .pyramid-row-2 { width: 200px; }
-  .pyramid-row-3 { width: 300px; }
-  .pyramid-row-4 { width: 340px; }
+  .timeline::before {
+    left: 60px;
+  }
+
+  .timeline-item {
+    grid-template-columns: 60px 1fr;
+    gap: 16px;
+  }
+
+  .timeline-item::after {
+    left: 56px;
+  }
+
+  .timeline-item.next-up::after {
+    left: 54px;
+  }
+
+  .pyramid-row-1 { width: 140px; }
+  .pyramid-row-2 { width: 220px; }
+  .pyramid-row-3 { width: 320px; }
+  .pyramid-row-4 { width: 100%; max-width: 360px; }
 
   .pyramid-block {
     padding: 12px 6px;
   }
 
+  .block-name {
+    font-size: 12px;
+  }
+
   .block-desc {
     display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .pyramid-row-1 { width: 120px; }
+  .pyramid-row-2 { width: 190px; }
+  .pyramid-row-3 { width: 280px; }
+  .pyramid-row-4 { width: 100%; max-width: 320px; }
+
+  .block-name {
+    font-size: 11px;
   }
 }

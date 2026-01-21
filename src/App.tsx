@@ -143,7 +143,7 @@ export function App() {
         <h1 className="text-[clamp(32px,6vw,72px)] font-extrabold text-white leading-[1.1] mb-8 tracking-[-2px] max-w-[800px]">
           We're building a <span className="text-[#3b82f6]">culture</span>, not a crowd.
         </h1>
-        <p className="text-xl text-[#555] max-w-[500px] mb-12">
+        <p className="text-base md:text-xl text-[#555] max-w-[500px] mb-12 px-2">
           Being a man isn't once a month—it's every day, all the time. This is where we sharpen what that means, together.
         </p>
         <a
@@ -242,7 +242,7 @@ export function App() {
             </div>
 
             {/* Value Detail Panel */}
-            <div className="bg-[#080808] border border-[#1a1a1a] rounded-lg p-8 md:p-10 w-full max-w-[800px] text-center">
+            <div className="bg-[#080808] border border-[#1a1a1a] rounded-lg p-6 md:p-10 w-full max-w-[800px] text-center mx-4 md:mx-0">
               <div className="text-[11px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">
                 {selectedValue.category}
               </div>
@@ -261,23 +261,23 @@ export function App() {
       </section>
 
       {/* Quote Section */}
-      <section className="snap-section h-screen flex items-center justify-center px-10">
-        <p className="text-[clamp(24px,4vw,40px)] text-white font-semibold max-w-[900px] mx-auto leading-relaxed">
+      <section className="snap-section h-screen flex items-center justify-center px-6 md:px-10">
+        <p className="text-[clamp(20px,4vw,40px)] text-white font-semibold max-w-[900px] mx-auto leading-relaxed text-center">
           "We want to live these values so wholeheartedly that when people interact with us—at home, at Journey, at work, in our community—<span className="text-[#3b82f6]">they experience them.</span>"
         </p>
       </section>
 
       {/* Schedule Section */}
-      <section id="schedule" className="snap-section bg-[#050505] min-h-screen py-24 px-6 md:px-16">
+      <section id="schedule" className="snap-section bg-[#050505] min-h-screen py-16 md:py-24 px-4 md:px-16">
         <div className="max-w-[1200px] mx-auto">
           {/* Schedule Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12 pb-6 border-b border-[#151515] gap-4">
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-[-2px]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 pb-4 md:pb-6 border-b border-[#151515] gap-3 md:gap-4">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-[-2px]">
               2026 Schedule
             </h2>
             <a
               href="/api/calendar/remaining"
-              className="inline-flex items-center gap-2 px-5 py-3 text-sm font-semibold bg-[#3b82f6] text-white rounded-md hover:bg-[#2563eb] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-semibold bg-[#3b82f6] text-white rounded-md hover:bg-[#2563eb] transition-colors"
             >
               <CalendarIcon />
               Add All to Calendar
@@ -291,27 +291,27 @@ export function App() {
               return (
                 <div key={index} className={`timeline-item ${isNext ? "next-up" : ""}`}>
                   <div className="text-right">
-                    <div className="text-xs uppercase tracking-[2px] text-[#444]">{item.month}</div>
-                    <div className="text-3xl font-bold text-white">{item.day}</div>
+                    <div className="text-[10px] md:text-xs uppercase tracking-[2px] text-[#444]">{item.month}</div>
+                    <div className="text-2xl md:text-3xl font-bold text-white">{item.day}</div>
                   </div>
                   <div>
-                    <h3 className="text-lg text-white mb-1 transition-colors">
+                    <h3 className="text-base md:text-lg text-white mb-1 transition-colors">
                       {item.title}
                       {isNext && (
-                        <span className="inline-block bg-[#3b82f6] text-white text-[10px] font-bold px-2.5 py-1 rounded ml-3 tracking-wider align-middle">
+                        <span className="inline-block bg-[#3b82f6] text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:px-2.5 md:py-1 rounded ml-2 md:ml-3 tracking-wider align-middle">
                           NEXT UP
                         </span>
                       )}
                     </h3>
-                    <p className="text-[#555] text-sm">{item.description}</p>
-                    <span className="inline-block text-[10px] uppercase tracking-[2px] text-[#3b82f6] mt-1.5">
+                    <p className="text-[#555] text-xs md:text-sm">{item.description}</p>
+                    <span className="inline-block text-[9px] md:text-[10px] uppercase tracking-[2px] text-[#3b82f6] mt-1">
                       {item.category}
                     </span>
                   </div>
                   <div className="timeline-actions">
                     <a
                       href={`/api/calendar/${index}`}
-                      className="inline-flex items-center gap-2 px-4 py-2.5 text-sm font-semibold bg-[#1a1a1a] text-[#888] border border-[#222] rounded-md hover:bg-[#222] hover:text-white hover:border-[#333] transition-colors"
+                      className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm font-semibold bg-[#1a1a1a] text-[#888] border border-[#222] rounded-md hover:bg-[#222] hover:text-white hover:border-[#333] transition-colors"
                     >
                       <PlusIcon />
                       Add
