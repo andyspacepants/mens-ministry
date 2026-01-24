@@ -51,11 +51,11 @@ const values = [
     description: "Work is worship (avodah) and stewardship (shamar). Whether in the office, the field, or the home, our work is an act of worship and a way we tend to what God has given us.",
   },
   {
-    id: "member",
-    name: "Member",
+    id: "community",
+    name: "Community",
     shortDesc: "Compassion",
     category: "Leadership",
-    description: "We are members of a body, called to compassion and community. No man is meant to walk alone. We bear one another's burdens and build each other up.",
+    description: "We are members of our community, called to character and compassion.",
   },
   // Row 4 - Foundations
   {
@@ -170,7 +170,7 @@ export function App() {
               The 10 Values of Manhood
             </h2>
             <p className="text-xl text-[#666] font-medium leading-relaxed max-w-[700px] mx-auto">
-              These anchor our gatherings and lay the foundation of our culture. We want to live them so wholeheartedly that people <em>experience</em> them.
+              They anchor our gatherings and lay the foundation of our culture. We live them so wholeheartedly that people around us <em>experience</em> them.
             </p>
           </div>
 
@@ -208,7 +208,7 @@ export function App() {
 
               {/* Row 3 */}
               <div className="pyramid-row pyramid-row-3">
-                {["husband", "father", "worker", "member"].map(id => {
+                {["husband", "father", "worker", "community"].map(id => {
                   const value = values.find(v => v.id === id)!;
                   return (
                     <button
@@ -276,7 +276,7 @@ export function App() {
               <div className="mb-6">
                 <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Leadership</div>
                 <div className="space-y-2">
-                  {["husband", "father", "worker", "member"].map(id => {
+                  {["husband", "father", "worker", "community"].map(id => {
                     const value = values.find(v => v.id === id)!;
                     const isSelected = selectedValue.id === id;
                     return (

@@ -108,6 +108,36 @@ const server = serve({
     "/og-image.svg": new Response(Bun.file("public/og-image.svg"), {
       headers: { "Content-Type": "image/svg+xml" },
     }),
+    "/og-image.png": new Response(Bun.file("public/og-image.png"), {
+      headers: { "Content-Type": "image/png" },
+    }),
+    "/favicon.svg": new Response(Bun.file("public/favicon.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-a.svg": new Response(Bun.file("public/favicon-option-a.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-b.svg": new Response(Bun.file("public/favicon-option-b.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-c.svg": new Response(Bun.file("public/favicon-option-c.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-d.svg": new Response(Bun.file("public/favicon-option-d.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-e.svg": new Response(Bun.file("public/favicon-option-e.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-f.svg": new Response(Bun.file("public/favicon-option-f.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-g.svg": new Response(Bun.file("public/favicon-option-g.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
+    "/favicon-option-h.svg": new Response(Bun.file("public/favicon-option-h.svg"), {
+      headers: { "Content-Type": "image/svg+xml" },
+    }),
 
     // In development, serve HMR-processed index for all routes
     ...(!isProduction && {
@@ -125,9 +155,20 @@ const server = serve({
       const apiResponse = handleApiRoute(request);
       if (apiResponse) return apiResponse;
 
-      // Serve og-image from public folder
+      // Serve static assets from public folder
       if (pathname === "/og-image.svg") {
         return new Response(Bun.file("public/og-image.svg"), {
+          headers: { "Content-Type": "image/svg+xml" },
+        });
+      }
+      if (pathname === "/og-image.png") {
+        return new Response(Bun.file("public/og-image.png"), {
+          headers: { "Content-Type": "image/png" },
+        });
+      }
+      if (pathname === "/favicon.svg" || pathname.startsWith("/favicon-option")) {
+        const filename = pathname.slice(1); // Remove leading slash
+        return new Response(Bun.file(`public/${filename}`), {
           headers: { "Content-Type": "image/svg+xml" },
         });
       }
