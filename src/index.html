@@ -26,7 +26,39 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <script type="module" src="./frontend.tsx" async></script>
   </head>
-  <body>
-    <div id="root"></div>
+  <body style="margin: 0; background-color: #000;">
+    <div id="root">
+      <!-- Inline loading state - shown immediately, replaced when React mounts -->
+      <div id="initial-loader" style="
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background-color: #000;
+        color: #fff;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      ">
+        <div style="
+          width: 40px;
+          height: 40px;
+          border: 3px solid #27272a;
+          border-top-color: #3b82f6;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+        "></div>
+        <p style="
+          margin-top: 16px;
+          font-size: 14px;
+          color: #71717a;
+          letter-spacing: 0.05em;
+        ">Loading...</p>
+      </div>
+      <style>
+        @keyframes spin {
+          to { transform: rotate(360deg); }
+        }
+      </style>
+    </div>
   </body>
 </html>
