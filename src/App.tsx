@@ -128,7 +128,7 @@ export function App() {
         </div>
         <a
           href="https://www.journeylifechurch.com"
-          className="text-text-ghost text-sm tracking-wider hover:text-card-foreground transition-colors"
+          className="text-muted-foreground text-sm tracking-wider hover:text-card-foreground transition-colors"
         >
           Back to JLC
         </a>
@@ -326,7 +326,7 @@ export function App() {
       */}
 
       {/* Schedule Section */}
-      <section id="schedule" className="snap-section bg-muted min-h-screen py-16 md:py-24 px-4 md:px-16">
+      <section id="schedule" className="snap-section bg-muted py-16 md:py-24 px-4 md:px-16">
         <div className="max-w-[1200px] mx-auto">
           {/* Schedule Header */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 pb-4 md:pb-6 border-b border-border-muted gap-3 md:gap-4">
@@ -383,15 +383,15 @@ export function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 text-center border-t border-muted">
+      <footer className="snap-section py-16 text-center bg-background border-t border-border">
         <a
           href="https://www.avodah.dev/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 text-text-ghost hover:text-text-faint transition-colors"
+          className="inline-flex items-center gap-3 text-text-faint hover:text-text-subtle transition-colors group"
         >
-          <span className="text-xs tracking-wider">Powered by</span>
-          <AvodahLogo className="h-6 w-auto" />
+          <span className="text-sm tracking-wider">Powered by</span>
+          <AvodahLogo className="h-10 w-auto transition-[filter] duration-300 group-hover:[filter:drop-shadow(0_0_15px_rgba(188,250,3,0.9))_drop-shadow(0_0_30px_rgba(188,250,3,0.6))_drop-shadow(0_0_50px_rgba(188,250,3,0.4))]" />
         </a>
       </footer>
     </div>
