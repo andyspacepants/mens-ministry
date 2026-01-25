@@ -5,7 +5,9 @@
       "Bash(mydev --help:*)",
       "Bash(mydev show:*)",
       "Bash(mydev stack:*)",
-      "Bash(mydev ports:*)"
+      "Bash(mydev ports:*)",
+      "Bash(mydev)",
+      "Bash(mydev system search:*)"
     ]
   }
 }

@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "./index.css";
 import { Admin } from "./components/admin/Admin";
-import { schedule, getNextEventIndex, getNextValueId } from "./data/schedule";
+import { schedule, getNextEventIndex } from "./data/schedule";
 
 // Values data
 const values = [
@@ -94,18 +94,10 @@ const CalendarIcon = () => (
   </svg>
 );
 
-const PlusIcon = () => (
-  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-  </svg>
-);
-
 // Compute these once at module load
 const nextEventIndex = getNextEventIndex();
-const nextValueId = getNextValueId();
 
 export function App() {
-  const [selectedValue, setSelectedValue] = useState(values.find(v => v.id === nextValueId)!);
   const [pathname, setPathname] = useState(window.location.pathname);
 
   // Handle browser navigation
@@ -121,15 +113,15 @@ export function App() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-[#e5e5e5]">
+    <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
-      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-gradient-to-b from-black to-transparent">
-        <div className="text-white text-xs font-bold uppercase tracking-[3px]">
+      <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-gradient-to-b from-background to-transparent">
+        <div className="text-card-foreground text-xs font-bold uppercase tracking-[3px]">
           Journey Life Church
         </div>
         <a
           href="https://www.journeylifechurch.com"
-          className="text-[#555] text-xs tracking-wider hover:text-white transition-colors"
+          className="text-text-subtle text-xs tracking-wider hover:text-card-foreground transition-colors"
         >
           Back to JLC
         </a>
@@ -137,25 +129,25 @@ export function App() {
 
       {/* Hero Section */}
       <section className="snap-section hero-gradient h-screen flex flex-col justify-center items-center text-center px-6 pt-32 pb-20 relative overflow-hidden">
-        <p className="text-sm uppercase tracking-[5px] text-[#3b82f6] mb-7 font-semibold">
+        <p className="text-base md:text-lg uppercase tracking-[5px] text-primary mb-7 font-semibold">
           Men's Ministry 2026
         </p>
-        <h1 className="text-[clamp(32px,6vw,72px)] font-extrabold text-white leading-[1.1] mb-8 tracking-[-2px] max-w-[800px]">
-          We're building a <span className="text-[#3b82f6]">culture</span>, not a crowd.
+        <h1 className="text-[clamp(32px,6vw,72px)] font-extrabold text-card-foreground leading-[1.1] mb-8 tracking-[-2px] max-w-[800px]">
+          We're building a <span className="text-primary">culture</span>, not a crowd.
         </h1>
-        <p className="text-base md:text-xl text-[#555] max-w-[500px] mb-12 px-2">
+        <p className="text-base md:text-xl text-text-subtle max-w-[500px] mb-12 px-2">
           Being a man isn't once a month—it's every day, all the time. This is where we sharpen what that means, together.
         </p>
         <a
           href="#schedule"
-          className="inline-flex items-center gap-3 text-[#3b82f6] text-sm font-semibold uppercase tracking-wider hover:gap-5 transition-all"
+          className="inline-flex items-center gap-3 text-primary text-sm font-semibold uppercase tracking-wider hover:gap-5 transition-all"
         >
           See the Schedule
           <ArrowIcon />
         </a>
 
         {/* Scroll indicator */}
-        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3.5 text-white">
+        <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3.5 text-card-foreground">
           <span className="text-sm uppercase tracking-[4px] font-medium">Scroll</span>
           <div className="scroll-line" />
         </div>
@@ -166,12 +158,9 @@ export function App() {
         <div className="max-w-[1200px] mx-auto w-full">
           {/* Values Header */}
           <div className="text-center mb-16">
-            <h2 className="text-base uppercase tracking-[5px] text-[#3b82f6] mb-5 font-semibold">
+            <h2 className="text-base uppercase tracking-[5px] text-primary mb-5 font-semibold">
               The 10 Values of Manhood
             </h2>
-            <p className="text-xl text-[#666] font-medium leading-relaxed max-w-[700px] mx-auto">
-              They anchor our gatherings and lay the foundation of our culture. We live them so wholeheartedly that people around us <em>experience</em> them.
-            </p>
           </div>
 
           {/* Values Content - Stacked */}
@@ -180,13 +169,10 @@ export function App() {
             <div className="pyramid">
               {/* Row 1 */}
               <div className="pyramid-row pyramid-row-1">
-                <button
-                  className={`pyramid-block ${selectedValue.id === "heaven" ? "active" : ""}`}
-                  onClick={() => setSelectedValue(values.find(v => v.id === "heaven")!)}
-                >
-                  <div className="block-name text-white font-semibold text-[15px] mb-1.5 transition-colors">On Earth as in Heaven</div>
-                  <div className="block-desc text-xs text-[#666]">The Ultimate Aim</div>
-                </button>
+                <div className="pyramid-block">
+                  <div className="block-name text-card-foreground font-semibold text-[15px] mb-1.5">On Earth as in Heaven</div>
+                  <div className="block-desc text-xs text-muted-foreground">The Ultimate Aim</div>
+                </div>
               </div>
 
               {/* Row 2 */}
@@ -194,14 +180,10 @@ export function App() {
                 {["growing", "fruitful"].map(id => {
                   const value = values.find(v => v.id === id)!;
                   return (
-                    <button
-                      key={id}
-                      className={`pyramid-block ${selectedValue.id === id ? "active" : ""}`}
-                      onClick={() => setSelectedValue(value)}
-                    >
-                      <div className="block-name text-white font-semibold text-[15px] mb-1.5 transition-colors">{value.name}</div>
-                      <div className="block-desc text-xs text-[#666]">{value.shortDesc}</div>
-                    </button>
+                    <div key={id} className="pyramid-block">
+                      <div className="block-name text-card-foreground font-semibold text-[15px] mb-1.5">{value.name}</div>
+                      <div className="block-desc text-xs text-muted-foreground">{value.shortDesc}</div>
+                    </div>
                   );
                 })}
               </div>
@@ -211,14 +193,10 @@ export function App() {
                 {["husband", "father", "worker", "community"].map(id => {
                   const value = values.find(v => v.id === id)!;
                   return (
-                    <button
-                      key={id}
-                      className={`pyramid-block ${selectedValue.id === id ? "active" : ""}`}
-                      onClick={() => setSelectedValue(value)}
-                    >
-                      <div className="block-name text-white font-semibold text-[15px] mb-1.5 transition-colors">{value.name}</div>
-                      <div className="block-desc text-xs text-[#666]">{value.shortDesc}</div>
-                    </button>
+                    <div key={id} className="pyramid-block">
+                      <div className="block-name text-card-foreground font-semibold text-[15px] mb-1.5">{value.name}</div>
+                      <div className="block-desc text-xs text-muted-foreground">{value.shortDesc}</div>
+                    </div>
                   );
                 })}
               </div>
@@ -228,14 +206,10 @@ export function App() {
                 {["intimacy", "identity", "integrity"].map(id => {
                   const value = values.find(v => v.id === id)!;
                   return (
-                    <button
-                      key={id}
-                      className={`pyramid-block ${selectedValue.id === id ? "active" : ""}`}
-                      onClick={() => setSelectedValue(value)}
-                    >
-                      <div className="block-name text-white font-semibold text-[15px] mb-1.5 transition-colors">{value.name}</div>
-                      <div className="block-desc text-xs text-[#666]">{value.shortDesc}</div>
-                    </button>
+                    <div key={id} className="pyramid-block">
+                      <div className="block-name text-card-foreground font-semibold text-[15px] mb-1.5">{value.name}</div>
+                      <div className="block-desc text-xs text-muted-foreground">{value.shortDesc}</div>
+                    </div>
                   );
                 })}
               </div>
@@ -245,28 +219,18 @@ export function App() {
             <div className="mobile-values w-full">
               {/* Foundations */}
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Foundations</div>
+                <div className="text-[10px] uppercase tracking-[3px] text-primary mb-3 font-semibold">Foundations</div>
                 <div className="space-y-2">
                   {["intimacy", "identity", "integrity"].map(id => {
                     const value = values.find(v => v.id === id)!;
-                    const isSelected = selectedValue.id === id;
                     return (
-                      <button
+                      <div
                         key={id}
-                        onClick={() => setSelectedValue(value)}
-                        className={`w-full text-left p-3 rounded-lg border transition-all ${
-                          isSelected
-                            ? "bg-[#0a1628] border-[#3b82f6]"
-                            : "bg-[#080808] border-[#1a1a1a]"
-                        }`}
+                        className="w-full text-left p-3 rounded-lg border bg-card border-border"
                       >
-                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
-                          {value.name}
-                        </div>
-                        {isSelected && (
-                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
-                        )}
-                      </button>
+                        <div className="font-medium text-sm text-card-foreground">{value.name}</div>
+                        <div className="text-xs text-muted-foreground mt-1">{value.shortDesc}</div>
+                      </div>
                     );
                   })}
                 </div>
@@ -274,28 +238,18 @@ export function App() {
 
               {/* Leadership */}
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Leadership</div>
+                <div className="text-[10px] uppercase tracking-[3px] text-primary mb-3 font-semibold">Leadership</div>
                 <div className="space-y-2">
                   {["husband", "father", "worker", "community"].map(id => {
                     const value = values.find(v => v.id === id)!;
-                    const isSelected = selectedValue.id === id;
                     return (
-                      <button
+                      <div
                         key={id}
-                        onClick={() => setSelectedValue(value)}
-                        className={`w-full text-left p-3 rounded-lg border transition-all ${
-                          isSelected
-                            ? "bg-[#0a1628] border-[#3b82f6]"
-                            : "bg-[#080808] border-[#1a1a1a]"
-                        }`}
+                        className="w-full text-left p-3 rounded-lg border bg-card border-border"
                       >
-                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
-                          {value.name}
-                        </div>
-                        {isSelected && (
-                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
-                        )}
-                      </button>
+                        <div className="font-medium text-sm text-card-foreground">{value.name}</div>
+                        <div className="text-xs text-muted-foreground mt-1">{value.shortDesc}</div>
+                      </div>
                     );
                   })}
                 </div>
@@ -303,28 +257,18 @@ export function App() {
 
               {/* Alignment */}
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Alignment</div>
+                <div className="text-[10px] uppercase tracking-[3px] text-primary mb-3 font-semibold">Alignment</div>
                 <div className="space-y-2">
                   {["growing", "fruitful"].map(id => {
                     const value = values.find(v => v.id === id)!;
-                    const isSelected = selectedValue.id === id;
                     return (
-                      <button
+                      <div
                         key={id}
-                        onClick={() => setSelectedValue(value)}
-                        className={`w-full text-left p-3 rounded-lg border transition-all ${
-                          isSelected
-                            ? "bg-[#0a1628] border-[#3b82f6]"
-                            : "bg-[#080808] border-[#1a1a1a]"
-                        }`}
+                        className="w-full text-left p-3 rounded-lg border bg-card border-border"
                       >
-                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
-                          {value.name}
-                        </div>
-                        {isSelected && (
-                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
-                        )}
-                      </button>
+                        <div className="font-medium text-sm text-card-foreground">{value.name}</div>
+                        <div className="text-xs text-muted-foreground mt-1">{value.shortDesc}</div>
+                      </div>
                     );
                   })}
                 </div>
@@ -332,71 +276,59 @@ export function App() {
 
               {/* Inheritance */}
               <div className="mb-6">
-                <div className="text-[10px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">Inheritance</div>
+                <div className="text-[10px] uppercase tracking-[3px] text-primary mb-3 font-semibold">Inheritance</div>
                 <div className="space-y-2">
                   {["heaven"].map(id => {
                     const value = values.find(v => v.id === id)!;
-                    const isSelected = selectedValue.id === id;
                     return (
-                      <button
+                      <div
                         key={id}
-                        onClick={() => setSelectedValue(value)}
-                        className={`w-full text-left p-3 rounded-lg border transition-all ${
-                          isSelected
-                            ? "bg-[#0a1628] border-[#3b82f6]"
-                            : "bg-[#080808] border-[#1a1a1a]"
-                        }`}
+                        className="w-full text-left p-3 rounded-lg border bg-card border-border"
                       >
-                        <div className={`font-medium text-sm ${isSelected ? "text-[#3b82f6]" : "text-white"}`}>
-                          {value.name}
-                        </div>
-                        {isSelected && (
-                          <div className="text-xs text-[#666] mt-1">{value.shortDesc}</div>
-                        )}
-                      </button>
+                        <div className="font-medium text-sm text-card-foreground">{value.name}</div>
+                        <div className="text-xs text-muted-foreground mt-1">{value.shortDesc}</div>
+                      </div>
                     );
                   })}
                 </div>
               </div>
             </div>
 
-            {/* Value Detail Panel */}
-            <div className="bg-[#080808] border border-[#1a1a1a] rounded-lg p-6 md:p-10 w-full max-w-[800px] text-center mx-4 md:mx-0">
-              <div className="text-[11px] uppercase tracking-[3px] text-[#3b82f6] mb-3 font-semibold">
+            {/* Value Detail Panel - Hidden for now, content preserved in values array above
+            <div className="bg-card border border-border rounded-lg p-6 md:p-10 w-full max-w-[800px] text-center mx-4 md:mx-0">
+              <div className="text-[11px] uppercase tracking-[3px] text-primary mb-3 font-semibold">
                 {selectedValue.category}
               </div>
-              <h3 className="text-2xl md:text-[28px] text-white mb-2 font-bold">
+              <h3 className="text-2xl md:text-[28px] text-card-foreground mb-2 font-bold">
                 {selectedValue.name}
               </h3>
-              <p className="text-base text-[#555] mb-4">
+              <p className="text-base text-text-subtle mb-4">
                 {selectedValue.shortDesc}
               </p>
-              <div className="text-[#888] text-[15px] leading-relaxed max-w-[600px] mx-auto">
+              <div className="text-secondary-foreground text-[15px] leading-relaxed max-w-[600px] mx-auto">
                 <p>{selectedValue.description}</p>
               </div>
             </div>
+            */}
           </div>
         </div>
       </section>
 
-      {/* Quote Section */}
-      <section className="snap-section h-screen flex items-center justify-center px-6 md:px-10">
-        <p className="text-[clamp(20px,4vw,40px)] text-white font-semibold max-w-[900px] mx-auto leading-relaxed text-center">
-          "We want to live these values so wholeheartedly that when people interact with us—at home, at Journey, at work, in our community—<span className="text-[#3b82f6]">they experience them.</span>"
-        </p>
-      </section>
+      {/* Quote Section - Removed for simplicity, preserved here:
+      "We want to live these values so wholeheartedly that when people interact with us—at home, at Journey, at work, in our community—they experience them."
+      */}
 
       {/* Schedule Section */}
-      <section id="schedule" className="snap-section bg-[#050505] min-h-screen py-16 md:py-24 px-4 md:px-16">
+      <section id="schedule" className="snap-section bg-muted min-h-screen py-16 md:py-24 px-4 md:px-16">
         <div className="max-w-[1200px] mx-auto">
           {/* Schedule Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 pb-4 md:pb-6 border-b border-[#151515] gap-3 md:gap-4">
-            <h2 className="text-3xl md:text-5xl font-extrabold text-white tracking-[-2px]">
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 md:mb-12 pb-4 md:pb-6 border-b border-border-muted gap-3 md:gap-4">
+            <h2 className="text-3xl md:text-5xl font-extrabold text-card-foreground tracking-[-2px]">
               2026 Schedule
             </h2>
             <a
               href="/api/calendar/remaining"
-              className="inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-semibold bg-[#3b82f6] text-white rounded-md hover:bg-[#2563eb] transition-colors"
+              className="inline-flex items-center gap-2 px-4 py-2.5 md:px-5 md:py-3 text-xs md:text-sm font-semibold bg-primary text-primary-foreground rounded-md hover:bg-primary-hover transition-colors"
             >
               <CalendarIcon />
               Add All to Calendar
@@ -410,29 +342,29 @@ export function App() {
               return (
                 <div key={index} className={`timeline-item ${isNext ? "next-up" : ""}`}>
                   <div className="text-right">
-                    <div className="text-[10px] md:text-xs uppercase tracking-[2px] text-[#444]">{item.month}</div>
-                    <div className="text-2xl md:text-3xl font-bold text-white">{item.day}</div>
+                    <div className="text-[10px] md:text-xs uppercase tracking-[2px] text-text-faint">{item.month}</div>
+                    <div className="text-2xl md:text-3xl font-bold text-card-foreground">{item.day}</div>
                   </div>
                   <div>
-                    <h3 className="text-base md:text-lg text-white mb-1 transition-colors">
+                    <h3 className="text-base md:text-lg text-card-foreground mb-1 transition-colors">
                       {item.title}
                       {isNext && (
-                        <span className="inline-block bg-[#3b82f6] text-white text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:px-2.5 md:py-1 rounded ml-2 md:ml-3 tracking-wider align-middle">
+                        <span className="inline-block bg-primary text-primary-foreground text-[9px] md:text-[10px] font-bold px-2 py-0.5 md:px-2.5 md:py-1 rounded ml-2 md:ml-3 tracking-wider align-middle">
                           NEXT UP
                         </span>
                       )}
                     </h3>
-                    <p className="text-[#555] text-xs md:text-sm">{item.description}</p>
-                    <span className="inline-block text-[9px] md:text-[10px] uppercase tracking-[2px] text-[#3b82f6] mt-1">
+                    <p className="text-text-subtle text-xs md:text-sm">{item.description}</p>
+                    <span className="inline-block text-[9px] md:text-[10px] uppercase tracking-[2px] text-primary mt-1">
                       {item.category}
                     </span>
                   </div>
                   <div className="timeline-actions">
                     <a
                       href={`/api/calendar/${index}`}
-                      className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm font-semibold bg-[#1a1a1a] text-[#888] border border-[#222] rounded-md hover:bg-[#222] hover:text-white hover:border-[#333] transition-colors"
+                      className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-2 md:px-4 md:py-2.5 text-xs md:text-sm font-semibold bg-border text-secondary-foreground border border-input rounded-md hover:bg-input hover:text-card-foreground hover:border-text-ghost transition-colors"
                     >
-                      <PlusIcon />
+                      <CalendarIcon />
                       Add
                     </a>
                   </div>
@@ -444,9 +376,9 @@ export function App() {
       </section>
 
       {/* Footer */}
-      <footer className="py-10 text-center border-t border-[#0a0a0a]">
-        <p className="text-xs text-[#333] tracking-wider">
-          <a href="https://www.journeylifechurch.com" className="text-[#444] hover:text-white transition-colors">
+      <footer className="py-10 text-center border-t border-muted">
+        <p className="text-xs text-text-ghost tracking-wider">
+          <a href="https://www.journeylifechurch.com" className="text-text-faint hover:text-card-foreground transition-colors">
             Journey Life Church
           </a>
           {" · "}Men's Ministry 2026
