@@ -128,7 +128,7 @@ export function App() {
         </div>
         <a
           href="https://www.journeylifechurch.com"
-          className="text-text-subtle text-xs tracking-wider hover:text-card-foreground transition-colors"
+          className="text-text-ghost text-sm tracking-wider hover:text-card-foreground transition-colors"
         >
           Back to JLC
         </a>
@@ -384,20 +384,14 @@ export function App() {
 
       {/* Footer */}
       <footer className="py-10 text-center border-t border-muted">
-        <p className="text-xs text-text-ghost tracking-wider mb-4">
-          <a href="https://www.journeylifechurch.com" className="text-text-faint hover:text-card-foreground transition-colors">
-            Journey Life Church
-          </a>
-          {" · "}Men's Ministry
-        </p>
         <a
           href="https://www.avodah.dev/"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 text-text-ghost hover:text-text-faint transition-colors"
+          className="inline-flex items-center gap-2.5 text-text-ghost hover:text-text-faint transition-colors"
         >
-          <span className="text-[10px] tracking-wider">Powered by</span>
-          <AvodahLogo className="h-4 w-auto" />
+          <span className="text-xs tracking-wider">Powered by</span>
+          <AvodahLogo className="h-6 w-auto" />
         </a>
       </footer>
     </div>
