@@ -94,6 +94,13 @@ const CalendarIcon = () => (
   </svg>
 );
 
+const AvodahLogo = ({ className }: { className?: string }) => (
+  <svg className={className} viewBox="0 0 443 388" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M 134.325 156.529 L 126.151 171 143.075 171 C 152.384 171, 160 170.704, 160 170.342 C 160 169.170, 143.837 141.999, 143.158 142.029 C 142.796 142.045, 138.821 148.570, 134.325 156.529 M 336.245 229.271 C 333.354 234.347, 329.605 240.863, 327.912 243.750 L 324.835 249 341.837 249 L 358.839 249 350.670 234.503 C 346.176 226.530, 342.275 220.015, 342 220.024 C 341.725 220.034, 339.135 224.195, 336.245 229.271 M 168.470 366.153 C 164.086 373.837, 160.350 380.546, 160.167 381.062 C 159.968 381.622, 166.525 382, 176.417 382 C 185.537 382, 193 381.680, 193 381.288 C 193 380.622, 179.973 357.489, 177.544 353.841 C 176.621 352.454, 175.130 354.476, 168.470 366.153" fill="#86c1e7" fillRule="evenodd"/>
+    <path d="M 189.670 64.051 L 158.024 119.120 195.203 184.060 L 232.382 249 263.654 249 L 294.926 249 301.290 238.250 C 304.791 232.338, 312.013 220.043, 317.341 210.928 L 327.027 194.357 274.598 102.096 C 245.762 51.353, 221.977 9.644, 221.742 9.409 C 221.507 9.174, 207.075 33.763, 189.670 64.051 M 59.239 288.320 C 29.957 339.111, 6 380.855, 6 381.084 C 6 381.681, 125.864 381.065, 129.681 380.449 C 132.723 379.958, 134.425 377.206, 168.786 317.218 C 188.545 282.723, 205.178 253.600, 205.748 252.500 C 206.622 250.814, 204.327 246.258, 191.138 223.500 L 175.492 196.500 143.985 196.236 L 112.477 195.973 59.239 288.320 M 218.228 280.250 C 204.380 303.809, 191.527 326.462, 191.732 326.949 C 191.860 327.252, 198.812 339.465, 207.180 354.089 L 222.396 380.678 273.363 381.339 C 339.775 382.200, 436 382.188, 436 381.318 C 436 380.943, 421.712 356.207, 404.250 326.349 L 372.500 272.063 297.789 272.031 L 223.077 272 218.228 280.250" fill="#2c4b5b" fillRule="evenodd"/>
+  </svg>
+);
+
 // Compute these once at module load
 const nextEventIndex = getNextEventIndex();
 
@@ -377,12 +384,21 @@ export function App() {
 
       {/* Footer */}
       <footer className="py-10 text-center border-t border-muted">
-        <p className="text-xs text-text-ghost tracking-wider">
+        <p className="text-xs text-text-ghost tracking-wider mb-4">
           <a href="https://www.journeylifechurch.com" className="text-text-faint hover:text-card-foreground transition-colors">
             Journey Life Church
           </a>
           {" · "}Men's Ministry
         </p>
+        <a
+          href="https://www.avodah.dev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-2 text-text-ghost hover:text-text-faint transition-colors"
+        >
+          <span className="text-[10px] tracking-wider">Powered by</span>
+          <AvodahLogo className="h-4 w-auto" />
+        </a>
       </footer>
     </div>
   );
