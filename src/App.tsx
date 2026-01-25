@@ -116,7 +116,7 @@ export function App() {
     <div className="min-h-screen bg-background text-foreground">
       {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-6 flex justify-between items-center bg-gradient-to-b from-background to-transparent">
-        <div className="text-card-foreground text-xs font-bold uppercase tracking-[3px]">
+        <div className="text-card-foreground text-sm font-bold uppercase tracking-[3px]">
           Journey Life Church
         </div>
         <a
@@ -130,7 +130,7 @@ export function App() {
       {/* Hero Section */}
       <section className="snap-section hero-gradient h-screen flex flex-col justify-center items-center text-center px-6 pt-32 pb-20 relative overflow-hidden">
         <p className="text-base md:text-lg uppercase tracking-[5px] text-primary mb-7 font-semibold">
-          Men's Ministry 2026
+          Men's Ministry
         </p>
         <h1 className="text-[clamp(32px,6vw,72px)] font-extrabold text-card-foreground leading-[1.1] mb-8 tracking-[-2px] max-w-[800px]">
           We're building a <span className="text-primary">culture</span>, not a crowd.
@@ -381,7 +381,7 @@ export function App() {
           <a href="https://www.journeylifechurch.com" className="text-text-faint hover:text-card-foreground transition-colors">
             Journey Life Church
           </a>
-          {" · "}Men's Ministry 2026
+          {" · "}Men's Ministry
         </p>
       </footer>
     </div>
