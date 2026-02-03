@@ -8,7 +8,8 @@
       "Bash(mydev ports:*)",
       "Bash(mydev)",
       "Bash(mydev system search:*)",
-      "Bash(mydev search:*)"
+      "Bash(mydev search:*)",
+      "Bash(ls:*)"
     ]
   }
 }

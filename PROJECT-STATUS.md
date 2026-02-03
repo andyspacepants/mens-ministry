@@ -1,6 +1,6 @@
 # Men's Ministry Project Status
 
-**Last Updated**: 2026-01-20
+**Last Updated**: 2026-02-03
 **Current Phase**: Live at https://jlc.cultureofmanhood.com
 
 ---
@@ -46,6 +46,13 @@ Building a men's ministry website for Journey Life Church (JLC) with the potenti
 - ✅ ICS calendar downloads (single event, remaining events, all events)
 - ✅ Social share image (og:image) for link previews
 
+### Man Times Newsletter (Print)
+- ✅ Componentized print newsletter system (`print/mantimes/`)
+- ✅ Shared CSS (`_base.css`) for consistent styling across issues
+- ✅ Template (`_template.html`) and back page reference (`_back-page.html`)
+- ✅ Issue 1: February 2026 — Vision & Invitation (`v1-i1-2026.02.html`)
+- ✅ `/mantimes` skill for scaffolding new issues
+
 ### Infrastructure
 - ✅ GitHub repo: `andyspacepants/mens-ministry`
 - ✅ CI/CD: GitHub Actions deploys to Fly.io on merge to main
@@ -77,10 +84,23 @@ mens-ministry/
 │   └── components/
 │       ├── ui/                 # shadcn components
 │       └── admin/              # Admin page components
+├── print/
+│   └── mantimes/
+│       ├── _base.css           # Shared styles for all issues
+│       ├── _back-page.html     # Back page reference snippet
+│       ├── _template.html      # Skeleton for new issues
+│       └── v1-i1-2026.02.html  # Issue 1: February 2026
 ├── public/
 │   └── og-image.svg            # Social share image
 ├── docs/
+│   ├── blueprint.md            # Ministry philosophy and framework
+│   ├── standards-review.md     # Personal reflections on each value
+│   ├── staff-intro.md          # Staff introduction document
+│   ├── copy-review.md          # Website copy review
 │   └── 2026/                   # Vision, schedule, cadence docs
+├── .claude/
+│   └── skills/
+│       └── mantimes.md         # /mantimes skill for new issues
 ├── .github/
 │   └── workflows/
 │       └── fly-deploy.yml      # CI/CD workflow
