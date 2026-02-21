@@ -4,6 +4,16 @@ globs: "*.ts, *.tsx, *.html, *.css, *.js, *.jsx, package.json"
 alwaysApply: false
 ---
 
+# Men's Ministry (Journey Life Church)
+
+Single-church men's ministry app for Journey Life Church (JLC). This is the original design and UI reference.
+
+## Related Projects
+
+- **`/dev/cultureofmanhood-app`** — The multi-church SaaS version of this concept. Culture of Manhood takes the JLC men's ministry model and makes it available to any church as a multi-tenant platform (`church-name.cultureofmanhood.com`). Built with TanStack Start + Fastify + PostgreSQL + Clerk. See its `STATUS.md` for full details.
+
+---
+
 Default to using Bun instead of Node.js.
 
 - Use `bun <file>` instead of `node <file>` or `ts-node <file>`
