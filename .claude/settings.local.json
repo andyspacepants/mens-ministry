@@ -9,7 +9,11 @@
       "Bash(mydev)",
       "Bash(mydev system search:*)",
       "Bash(mydev search:*)",
-      "Bash(ls:*)"
+      "Bash(ls:*)",
+      "Bash(mydev --help 2>&1 || mydev help 2>&1 || mydev 2>&1)",
+      "Bash(mydev overview:*)",
+      "Bash(mydev tools:*)",
+      "Bash(mydev stats:*)"
     ]
   }
 }

@@ -66,9 +66,12 @@ function handleApiRoute(request: Request): Response | null {
   return null; // Not an API route
 }
 
-const server = serve({
-  port: parseInt(process.env.PORT || "5003"),
-  routes: {
+async function startServer(startPort = parseInt(process.env.PORT || "4008"), maxAttempts = 10) {
+  for (let port = startPort; port < startPort + maxAttempts; port++) {
+    try {
+      const server = serve({
+        port,
+        routes: {
     // API routes
     "/api/admin/verify": {
       POST: (req: Request) => {
@@ -199,4 +202,17 @@ const server = serve({
   },
 });
 
-console.log(`🚀 Server running at ${server.url}`);
+      console.log(`🚀 Server running at ${server.url}`);
+      return server;
+    } catch (error: any) {
+      if (error?.code === "EADDRINUSE") {
+        console.log(`Port ${port} is in use, trying ${port + 1}...`);
+        continue;
+      }
+      throw error;
+    }
+  }
+  throw new Error(`Failed to start server after ${maxAttempts} attempts`);
+}
+
+startServer();
